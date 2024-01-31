@@ -1,12 +1,13 @@
 import os
 
 class URollingAppenderLog:
-    def __init__(self, log_file, max_file_size_bytes=4 * 20, max_backups=5):
+    def __init__(self, log_file, max_file_size_bytes=4 * 20, max_backups=5, print_messages=False):
         if max_backups < 0:
             raise ValueError("max_backups must be greater than or equal to zero.")        
         self.log_file = log_file
         self.max_file_size_bytes = max_file_size_bytes
         self.max_backups = max_backups
+        self.print_messages = print_messages
 
     def get_next_backup_index(self):
         backup_index = 1
@@ -47,6 +48,9 @@ class URollingAppenderLog:
         return self.existing_backups
 
     def log_message(self, message):
+        if self.print_messages == True:
+            print(message)
+
         self.existing_backups = [f for f in os.listdir() if f.startswith(self.log_file + '.')]
 
         # Check if the log file exists and if its size exceeds the limit
@@ -59,4 +63,3 @@ class URollingAppenderLog:
         # Open the log file in append mode and write the message
         with open(self.log_file, 'a') as file:
             file.write(message + '\n')
-
