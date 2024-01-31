@@ -7,6 +7,7 @@ This class allows you to specify
 - the name of the log file
 - the maximum number of bytes you would like to log into a file
 - how many backup versions of the log file you would like to maintain
+- if you also want to print the messages
 
 Backup files are given a siffix indicating how old they are. If max_backus is three then
 
@@ -32,7 +33,7 @@ logger.log_message("This is a test message.")
 
 ```
 
-If you want to specify the maximum size of a log file in bytes along with the number of backup files you can adjust the instantiation
+If you want to specify the maximum size of a log file in bytes along with the number of backup files or print messages you can adjust the instantiation
 
 ```python
 # test_logging_app.py
@@ -40,7 +41,7 @@ If you want to specify the maximum size of a log file in bytes along with the nu
 from rolling_appender_log import uRollingAppenderLog
 
 # Instantiate the URollingAppenderLog class with custom values
-logger = URollingAppenderLog("test_log.log", max_file_size_bytes=1024, max_backups=3)
+logger = URollingAppenderLog("test_log.log", max_file_size_bytes=1024, max_backups=3, print_messages=True)
 
 # Log a message
 logger.log_message("This is a test message.")
