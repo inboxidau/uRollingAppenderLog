@@ -8,12 +8,12 @@ This class allows you to specify
 - the maximum number of bytes you would like to log into a file
 - how many backup versions of the log file you would like to maintain
 
-Backup files are given a siffix indicating how old they are
-i.e.
- output.log   containes the newest log entries
- output.log.1
- output.log.2
- output.log.3 containes the oldest log entreies
+Backup files are given a siffix indicating how old they are. If max_backus is three then
+
+- output.log   *(contains the newest log entries)*  
+- output.log.1  *(contains old log entreies)* 
+- output.log.2  *(contains older log entreies)* 
+- output.log.3 *(contains oldest log entreies)*  
 
 Files will be deleted when they surpass the max_backups value
 
