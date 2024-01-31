@@ -8,7 +8,16 @@ This class allows you to specify
 - the maximum number of bytes you would like to log into a file
 - how many backup versions of the log file you would like to maintain
 
-Backup files are given a siffix indicating how old they are, ".1" being the latest backup, ".2" the next oldest and so on.
+Backup files are given a siffix indicating how old they are
+i.e.
+ output.log   containes the newest log entries
+ output.log.1
+ output.log.2
+ output.log.3 containes the oldest log entreies
+
+Files will be deleted when they surpass the max_backups value
+
+Exceptions are not handled within the class and will propogate up the call stack.
 
 ```python
 # test_logging_app.py
