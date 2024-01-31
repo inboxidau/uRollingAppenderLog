@@ -9,7 +9,7 @@ This class allows you to specify
 - how many backup versions of the log file you would like to maintain
 - if you also want to print the messages
 
-Backup files are given a siffix indicating how old they are. If max_backus is three then
+Backup files are given a siffix indicating how old they are. If max_backup is three then
 
 - output.log   *(contains the newest log entries)*  
 - output.log.1  *(contains old log entreies)* 
