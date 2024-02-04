@@ -1,4 +1,4 @@
-# uRollingAppenderLog
+o# uRollingAppenderLog
 Simple micropython rolling appender logging.
 
 Send messages to the log file without fear of filling your storage space.
@@ -12,9 +12,9 @@ This class allows you to specify
 Backup files are given a suffix indicating how old they are. If max_backup is three then
 
 - output.log   *(contains the newest log entries)*  
-- output.log.1  *(contains old log entreies)* 
-- output.log.2  *(contains older log entreies)* 
-- output.log.3 *(contains oldest log entreies)*  
+- output.log.1  *(contains old log entries)* 
+- output.log.2  *(contains older log entries)* 
+- output.log.3 *(contains oldest log entries)*  
 
 Files will be deleted when they surpass the max_backups value
 
