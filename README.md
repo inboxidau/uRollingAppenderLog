@@ -1,4 +1,4 @@
-o# uRollingAppenderLog
+# uRollingAppenderLog
 Simple micropython rolling appender logging.
 
 Send messages to the log file without fear of filling your storage space.
