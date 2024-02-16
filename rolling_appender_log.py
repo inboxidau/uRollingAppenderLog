@@ -1,13 +1,19 @@
 import os
 
+class LogLevel:
+    ERROR = 1
+    DEBUG = 2
+    INFO = 3
+    
 class URollingAppenderLog:
-    def __init__(self, log_file, max_file_size_bytes=4 * 20, max_backups=5, print_messages=False):
+    def __init__(self, log_file, max_file_size_bytes=4 * 20, max_backups=5, print_messages=False, log_level=LogLevel.INFO):
         if max_backups < 0:
             raise ValueError("max_backups must be greater than or equal to zero.")        
         self.log_file = log_file
         self.max_file_size_bytes = max_file_size_bytes
         self.max_backups = max_backups
         self.print_messages = print_messages
+        self.log_level = log_level
 
     def get_next_backup_index(self):
         backup_index = 1
@@ -47,19 +53,40 @@ class URollingAppenderLog:
 
         return self.existing_backups
 
-    def log_message(self, message):
-        if self.print_messages == True:
-            print(message)
+    def log_message(self, message, level=LogLevel.INFO):
+        display_message = False
+        if self.log_level == LogLevel.INFO and level in (LogLevel.ERROR, LogLevel.INFO):
+            display_message = True
+        elif self.log_level == LogLevel.DEBUG and level in (LogLevel.ERROR, LogLevel.DEBUG, LogLevel.INFO):
+            display_message = True
+        elif self.log_level == LogLevel.ERROR and level == LogLevel.ERROR:
+            display_message = True
 
-        self.existing_backups = [f for f in os.listdir() if f.startswith(self.log_file + '.')]
+        if level == LogLevel.INFO:
+            prefix = "INFO"
+        elif level == LogLevel.DEBUG:
+            prefix = "DEBUG"
+        elif level == LogLevel.ERROR:
+            prefix = "ERROR"            
+        else:
+            prefix = "UNKNOWN"
 
-        # Check if the log file exists and if its size exceeds the limit
-        if self.log_file in os.listdir():
-            log_file_size = os.stat(self.log_file)[6]  # Index 6 corresponds to the size in the os.stat result
-            if log_file_size > self.max_file_size_bytes:
-                # Roll over backups if the maximum number is reached
-                self.roll_over_backups()
+        message = f"{prefix}: {message}"
+            
+        if display_message == True:    
+            if self.print_messages == True:
+                print(message)
 
-        # Open the log file in append mode and write the message
-        with open(self.log_file, 'a') as file:
-            file.write(message + '\n')
+            self.existing_backups = [f for f in os.listdir() if f.startswith(self.log_file + '.')]
+
+            # Check if the log file exists and if its size exceeds the limit
+            if self.log_file in os.listdir():
+                log_file_size = os.stat(self.log_file)[6]  # Index 6 corresponds to the size in the os.stat result
+                if log_file_size > self.max_file_size_bytes:
+                    # Roll over backups if the maximum number is reached
+                    self.roll_over_backups()
+
+            # Open the log file in append mode and write the message
+            with open(self.log_file, 'a') as file:
+                file.write(message + '\n')
+
