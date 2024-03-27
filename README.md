@@ -41,6 +41,15 @@ Blank cells indicate that the corresponding log level will not be output.<br>
 The rows represent the log level set for the logger instance.<br>
 The columns represent the log levels of the messages.<br>
 
+Messages are logged with the following pattern<P>
+&nbsp;&nbsp;TID:{TID}-{prefix}-{message}
+
+&nbsp;&nbsp;**where**<br>
+&nbsp;&nbsp;&nbsp;&nbsp;TID: is a literal string denoting the start of a message.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{TID} is the UTC timestamp supplied to the log_message function, defaulting to 0000-00-00T00:00:00Z **NOTE: the supplied TID is not validated**<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;{prefix} is a literal string representation of the log_level supplied to the log_message function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{message} is the message supplied to the log_message function.<br>
+  
 NOTE: Exceptions are not handled within the class and will propogate up the call stack.
 
 ```python
@@ -62,12 +71,14 @@ logger.log_message("This is an info message.")
 logger.log_message("This is another info message.", LogLevel.INFO)
 logger.log_message("This is a debug message.", LogLevel.DEBUG)
 logger.log_message("This is an error message.", LogLevel.ERROR)
+logger.log_message("This is an error message with a specified TID.", LogLevel.ERROR, "2024-01-01T23:59:59Z")
 
 # Log messages
 logger2.log_message("This is an info message.")
 logger2.log_message("This is another info message.", LogLevel.INFO)
 logger2.log_message("This is a debug message.", LogLevel.DEBUG)
 logger2.log_message("This is an error message.", LogLevel.ERROR)
+logger2.log_message("This is an error message with a specified TID.", LogLevel.ERROR, "2024-01-01T23:59:59Z")
 ```
 
 If you want to specify the maximum size of a log file in bytes along with the number of backup files or print messages you can adjust the instantiation
