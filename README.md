@@ -1,5 +1,7 @@
 # uRollingAppenderLog
-Simple micropython rolling appender logging.
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=inboxidau_uRollingAppenderLog&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=inboxidau_uRollingAppenderLog)
+
+Simple micropython rolling appender logging.<P>
 
 Send messages to the log file without fear of filling your storage space.
 
