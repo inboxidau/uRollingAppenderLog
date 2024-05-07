@@ -39,10 +39,10 @@ class TestURollingAppenderLog(unittest.TestCase):
         log_file = "test_log.txt"
         test_max_backups = 2
         logger = URollingAppenderLog(log_file, max_file_size_bytes=10, max_backups=test_max_backups, print_messages=True)
-        logger.log_message(f"Test message 0", level=LogLevel.INFO)
-        logger.log_message(f"Test message 1", level=LogLevel.INFO)
-        logger.log_message(f"Test message 2", level=LogLevel.INFO)
-        logger.log_message(f"Test message 3", level=LogLevel.INFO)                     
+        logger.log_message("Test message 0", level=LogLevel.INFO)
+        logger.log_message("Test message 1", level=LogLevel.INFO)
+        logger.log_message("Test message 2", level=LogLevel.INFO)
+        logger.log_message("Test message 3", level=LogLevel.INFO)                     
 
         backups = logger.existing_backups
         self.assertEqual(len(backups), test_max_backups)

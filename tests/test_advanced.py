@@ -78,8 +78,8 @@ class TestAdvancedURollingAppenderLog(unittest.TestCase):
             with open(backup_file, 'w') as file:
                 file.write(f"{some_content}")
         logger = URollingAppenderLog(log_file, max_file_size_bytes=len(some_content), max_backups=test_max_backups, print_messages=False)
-        logger.log_message(f"Test message 0", level=LogLevel.INFO)
-        logger.log_message(f"Test message 1", level=LogLevel.INFO)
+        logger.log_message("Test message 0", level=LogLevel.INFO)
+        logger.log_message("Test message 1", level=LogLevel.INFO)
 
         # Check if the backup files are rotated correctly
         new_backups = logger.existing_backups
