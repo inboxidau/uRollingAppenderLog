@@ -88,18 +88,19 @@ class URollingAppenderLog:
     def _remove_extra_backups(self):
         # Remove extra backups if the number exceeds max_backups
         while len(self.existing_backups) >= self.max_backups:
-            largest_backup = max(self.existing_backups, key=lambda x: int(x.split('.')[-1]))
+            largest_backup_index = max([int(f.split('.')[-1]) for f in self.existing_backups])
+            largest_backup = f"{self.log_file}.{largest_backup_index}"
             self._print_console_message(f"remove {largest_backup}")
             os.remove(largest_backup)
             self.existing_backups.remove(largest_backup)
     
     def _rename_existing_backups(self):
         # Rename existing backups in descending order
-        for backup_index in sorted(range(1, self._get_next_backup_index()), reverse=True):
+        for backup_index in sorted([int(f.split('.')[-1]) for f in self.existing_backups], reverse=True):
             old_backup = f"{self.log_file}.{backup_index}"
             new_backup = f"{self.log_file}.{backup_index + 1}"
             self._print_console_message(f"rename {old_backup} to {new_backup}")
-            os.rename(old_backup, new_backup)
+            os.rename(old_backup, new_backup)            
     
     def _rename_current_log_file(self):
         # Rename the current log file
@@ -108,22 +109,14 @@ class URollingAppenderLog:
     
     def _update_existing_backups_list(self):
         # Adjust the list of existing backups after renaming
-        self.existing_backups = [f"{self.log_file}.{i}" for i in range(1, self._get_next_backup_index())]
+        # self.existing_backups = [f"{self.log_file}.{i}" for i in range(1, self._get_next_backup_index())]
+        self.existing_backups = [f for f in os.listdir() if f.startswith(f"{self.log_file}.")]
     
     def _handle_rotation_error(self, e):
         error_message = f"Error during backup rotation: {e}"
         self._print_console_message(error_message)
         raise LogOperationException(error_message)
 
-    def _get_next_backup_index(self):
-        backup_index = 1
-
-        while f"{self.log_file}.{backup_index}" in self.existing_backups:
-            backup_index += 1
-        if self.print_messages == True and self.log_level == LogLevel.DEBUG:
-            print(f"CONSOLE: _get_next_backup_index = {backup_index}")
-        return backup_index
-        
     def _print_console_message(self, message):
         if self.print_messages and self.log_level == LogLevel.DEBUG:
             print(f"CONSOLE: {message}")
