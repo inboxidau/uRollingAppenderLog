@@ -109,7 +109,6 @@ class URollingAppenderLog:
     
     def _update_existing_backups_list(self):
         # Adjust the list of existing backups after renaming
-        # self.existing_backups = [f"{self.log_file}.{i}" for i in range(1, self._get_next_backup_index())]
         self.existing_backups = [f for f in os.listdir() if f.startswith(f"{self.log_file}.")]
     
     def _handle_rotation_error(self, e):
