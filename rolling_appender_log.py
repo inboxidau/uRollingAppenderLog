@@ -17,7 +17,7 @@ class URollingAppenderLog:
     def __init__(self, log_file, max_file_size_bytes=4 * 20, max_backups=5, print_messages=False, log_level=LogLevel.INFO):
         # if log_level is set to LogLevel.DEBUG then the class will emit its own debug information as "CONSOLE:" only to stdout
         if max_backups < 0:
-            raise ValueError("max_backups must be greater than or equal to zero.") 
+            raise ValueError("max_backups must be greater than or equal to zero.")
         self.log_file = log_file
         self.max_file_size_bytes = max_file_size_bytes
         self.max_backups = max_backups
@@ -122,4 +122,3 @@ class URollingAppenderLog:
     def _print_console_message(self, message):
         if self.print_messages and self.log_level == LogLevel.DEBUG:
             print(f"CONSOLE: {message}")
-            
