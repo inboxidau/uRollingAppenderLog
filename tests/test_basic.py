@@ -1,10 +1,9 @@
 import os
 import sys
 import unittest
-#sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from rolling_appender_log import URollingAppenderLog, LogLevel, LogOperationException
 
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 class TestURollingAppenderLog(unittest.TestCase):
 
