@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))  # noqa
 import unittest
 from rolling_appender_log import URollingAppenderLog, LogLevel, LogOperationException
 
@@ -42,7 +42,7 @@ class TestURollingAppenderLog(unittest.TestCase):
         logger.log_message("Test message 0", level=LogLevel.INFO)
         logger.log_message("Test message 1", level=LogLevel.INFO)
         logger.log_message("Test message 2", level=LogLevel.INFO)
-        logger.log_message("Test message 3", level=LogLevel.INFO)                
+        logger.log_message("Test message 3", level=LogLevel.INFO)
 
         backups = logger.existing_backups
         self.assertEqual(len(backups), test_max_backups)
