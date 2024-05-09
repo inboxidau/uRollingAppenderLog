@@ -1,5 +1,6 @@
 # uRollingAppenderLog
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=inboxidau_uRollingAppenderLog&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=inboxidau_uRollingAppenderLog)
+[![Python lint and test](https://github.com/inboxidau/uRollingAppenderLog/actions/workflows/python-app.yml/badge.svg?branch=main)](https://github.com/inboxidau/uRollingAppenderLog/actions/workflows/python-app.yml)
 
 Simple micropython rolling appender logging.<P>
 
