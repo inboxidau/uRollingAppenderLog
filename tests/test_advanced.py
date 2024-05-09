@@ -1,8 +1,9 @@
 import os
 import sys
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))) # noqa
 import unittest
 from rolling_appender_log import URollingAppenderLog, LogLevel, LogOperationException
+
 
 class TestAdvancedURollingAppenderLog(unittest.TestCase):
 
@@ -53,7 +54,7 @@ class TestAdvancedURollingAppenderLog(unittest.TestCase):
     def test_log_message_debug(self):
         # Test log_message with LogLevel.DEBUG
         log_file = "test.log"
-        logger = URollingAppenderLog(log_file, max_file_size_bytes=100, max_backups=2, \
+        logger = URollingAppenderLog(log_file, max_file_size_bytes=100, max_backups=2,
                                      print_messages=True, log_level=LogLevel.DEBUG)
         logger.log_message("Test debug message", level=LogLevel.DEBUG)
         logger.log_message("Test info message", level=LogLevel.INFO)
@@ -80,7 +81,7 @@ class TestAdvancedURollingAppenderLog(unittest.TestCase):
         for backup_file in backups:
             with open(backup_file, 'w') as file:
                 file.write(f"{some_content}")
-        logger = URollingAppenderLog(log_file, max_file_size_bytes=len(some_content), \
+        logger = URollingAppenderLog(log_file, max_file_size_bytes=len(some_content),
                                      max_backups=test_max_backups, print_messages=False)
         logger.log_message("Test message 0", level=LogLevel.INFO)
         logger.log_message("Test message 1", level=LogLevel.INFO)
