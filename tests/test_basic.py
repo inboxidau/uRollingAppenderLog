@@ -1,9 +1,11 @@
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import os
 import sys
 import unittest
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 
 from rolling_appender_log import URollingAppenderLog, LogLevel, LogOperationException
+
 
 class TestURollingAppenderLog(unittest.TestCase):
 
@@ -42,7 +44,7 @@ class TestURollingAppenderLog(unittest.TestCase):
         logger.log_message("Test message 0", level=LogLevel.INFO)
         logger.log_message("Test message 1", level=LogLevel.INFO)
         logger.log_message("Test message 2", level=LogLevel.INFO)
-        logger.log_message("Test message 3", level=LogLevel.INFO)                     
+        logger.log_message("Test message 3", level=LogLevel.INFO)                
 
         backups = logger.existing_backups
         self.assertEqual(len(backups), test_max_backups)
@@ -50,7 +52,8 @@ class TestURollingAppenderLog(unittest.TestCase):
         # Cleanup
         os.remove(log_file)
         for backup_file in backups:
-            os.remove(backup_file) 
+            os.remove(backup_file)
+
 
 if __name__ == '__main__':
     unittest.main()
