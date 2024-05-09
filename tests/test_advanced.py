@@ -2,6 +2,7 @@ import os
 import unittest
 from rolling_appender_log import URollingAppenderLog, LogLevel, LogOperationException
 
+
 class TestAdvancedURollingAppenderLog(unittest.TestCase):
 
     def test_max_file_size_exceeded(self):
@@ -9,7 +10,7 @@ class TestAdvancedURollingAppenderLog(unittest.TestCase):
         log_file = "test.log"
         max_file_size = 20  # Bytes
         logger = URollingAppenderLog(log_file, max_file_size_bytes=max_file_size, max_backups=2, print_messages=False)
-        
+
         # Fill the log file to exceed the max file size
         with open(log_file, 'w') as file:
             # Write some content to exceed the max file size
@@ -20,7 +21,7 @@ class TestAdvancedURollingAppenderLog(unittest.TestCase):
 
         # Check if the backup file is created
         backups = [f for f in os.listdir() if f.startswith(f"{log_file}.")]
-        self.assertGreater(len(backups),0)
+        self.assertGreater(len(backups), 0)
 
         # Cleanup
         os.remove(log_file)
@@ -51,7 +52,8 @@ class TestAdvancedURollingAppenderLog(unittest.TestCase):
     def test_log_message_debug(self):
         # Test log_message with LogLevel.DEBUG
         log_file = "test.log"
-        logger = URollingAppenderLog(log_file, max_file_size_bytes=100, max_backups=2, print_messages=True, log_level=LogLevel.DEBUG)
+        logger = URollingAppenderLog(log_file, max_file_size_bytes=100, max_backups=2, \
+                                     print_messages=True, log_level=LogLevel.DEBUG)
         logger.log_message("Test debug message", level=LogLevel.DEBUG)
         logger.log_message("Test info message", level=LogLevel.INFO)
 
@@ -77,7 +79,8 @@ class TestAdvancedURollingAppenderLog(unittest.TestCase):
         for backup_file in backups:
             with open(backup_file, 'w') as file:
                 file.write(f"{some_content}")
-        logger = URollingAppenderLog(log_file, max_file_size_bytes=len(some_content), max_backups=test_max_backups, print_messages=False)
+        logger = URollingAppenderLog(log_file, max_file_size_bytes=len(some_content), \
+                                     max_backups=test_max_backups, print_messages=False)
         logger.log_message("Test message 0", level=LogLevel.INFO)
         logger.log_message("Test message 1", level=LogLevel.INFO)
 
@@ -88,7 +91,8 @@ class TestAdvancedURollingAppenderLog(unittest.TestCase):
         # Cleanup
         os.remove(log_file)
         for backup_file in new_backups:
-            os.remove(backup_file) 
+            os.remove(backup_file)
+
 
 if __name__ == '__main__':
     unittest.main()
